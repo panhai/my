@@ -3,7 +3,7 @@
     <!-- 路由匹配到的组件将渲染在这里 -->
     <div class="wrap" v-if="$route.meta.showTab">
       <div class="container">
-        <keep-alive>
+        <keep-alive>  
           <router-view></router-view>
         </keep-alive>
       </div>
