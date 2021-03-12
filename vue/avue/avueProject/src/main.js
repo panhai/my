@@ -8,6 +8,15 @@ import Avue from '@smallwei/avue';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@smallwei/avue/lib/index.css';
 
+import echarts from 'echarts'
+// let echarts = require('echarts/lib/echarts');
+// require('echarts/lib/chart/bar')
+// require('echarts/lib/component/tooltip')
+// require('echarts/lib/component/title')
+
+Vue.prototype.$echarts = echarts
+
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUI);

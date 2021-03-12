@@ -2,8 +2,8 @@
 	<div class="hello">
 		<div class="table">
 			<avue-crud ref="crud" :search.sync="vard" :cell-class-name="tablecell" :header-cell-class-name="headerclass"
-			 :before-open="beforeopen" 
-			 :data="tableData" 
+			 :before-open="beforeopen"
+			 :data="tableData"
 			 :span-method="spanM"
 			 :table-loading="false"
 			 :rowKey ="1"
@@ -13,12 +13,21 @@
 			</avue-crud>
 		</div>
 		<el-button @click="show">点击我啊</el-button>
-		<avue-echart-wordcloud ref="echart" :option="config" :data="data" width="1000"></avue-echart-wordcloud>
+		<!-- <avue-echart-wordcloud ref="echart" :option="config" :data="data" width="1000"></avue-echart-wordcloud> -->
+
+
+    <div id="myChart" :style="{width: '800px', height: '400px',marginTop:'100px'}" ></div>
+
+
 	</div>
 </template>
 
 <script>
+  import echarts from 'echarts'
 	import dayjs from 'dayjs';
+
+  console.log('echarts=====',echarts)
+
 	export default {
 		name: 'HelloWorld',
 		data() {
@@ -80,7 +89,7 @@
 					dialogType: 'drawer',//dialog 类型 dialog / drawer
 					// expandRowKeys:[0,1],
 					filterBtn:true,
-					
+
 					expand:true,
 					column: [{
 							label: '姓名',
@@ -109,8 +118,80 @@
 			 console.log(dayjs())
 			 console.log(dayjs("12-25-1995", "MM-DD-YYYY"),dayjs('20222-12-255'))
 			 console.log(dayjs().add(7, 'day'))
+
+        this.drawLine();
+
 		},
 		methods: {
+       drawLine(){
+              // 基于准备好的dom，初始化echarts实例
+              let myChart = this.$echarts.init(document.getElementById('myChart'))
+              // var myChart = echarts.init(document.getElementById("myChart"));
+              let option = {
+                  title: {
+                      text: '折线图堆叠1'
+                  },
+                  tooltip: {
+                      trigger: 'axis' // axis  item none
+                  },
+                  legend: {
+                      data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎2']
+                  },
+                  grid: {
+                      left: '30%',
+                      right: '4%',
+                      top: '23%',
+                      containLabel: true
+                  },
+                  toolbox: {
+                      feature: {
+                          saveAsImage: {}
+                      }
+                  },
+                  xAxis: {
+                      type: 'category',
+                      boundaryGap: false,
+                      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                  },
+                  yAxis: {
+                      type: 'value'
+                  },
+                  series: [
+                      {
+                          name: '邮件营销',
+                          type: 'line',
+                          stack: '总量',
+                          data: [120, 132, 101, 134, 90, 230, 210]
+                      },
+                      {
+                          name: '联盟广告',
+                          type: 'line',
+                          stack: '总量',
+                          data: [220, 182, 191, 234, 290, 330, 310]
+                      },
+                      {
+                          name: '视频广告',
+                          type: 'line',
+                          stack: '总量',
+                          data: [150, 232, 201, 154, 190, 330, 410]
+                      },
+                      {
+                          name: '直接访问',
+                          type: 'line',
+                          stack: '总量',
+                          data: [320, 332, 301, 334, 390, 330, 320]
+                      },
+                      {
+                          name: '搜索引擎',
+                          type: 'line',
+                          stack: '总量',
+                          data: [820, 932, 901, 934, 1290, 1330, 1320]
+                      }
+                  ]
+              };
+              // 绘制图表
+              myChart.setOption(option);
+          },
 			tablecell({
 				row,
 				column,
@@ -142,7 +223,7 @@
 				columnIndex
 			}) { // 合并行或者列的方法
 				// console.log(rowIndex,columnIndex)
-				
+
 				// if (columnIndex === 0) { //用于设置要合并的列
 				// 	if (rowIndex % 2 === 0) { //用于设置合并开始的行号
 				// 		return {
