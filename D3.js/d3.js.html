@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>D3.js</title>
+		<style type="text/css">
+			.app{
+				width: 100px;
+				height: 50px;
+				background-color: #00B7FF;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="app">
+			
+		</div>
+		<svg width = "300" height = "300">
+			<line x1 = "100" y1 = "100" x2 = "200" y2 = "200" 
+			   style = "stroke:rgb(255,0,0);stroke-width:2"/>
+		</svg>
+		
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script type="text/javascript">
+			
+			let app = d3.select('.app');
+			
+			console.log(app)
+			setInterval(()=>{
+				let m = Math.random() * 100;
+				app.datum(m).text(function(d){
+					return d
+				})
+				console.log(m)
+			},1500)
+
+		</script>
+	</body>
+</html>
